@@ -1,2 +1,2 @@
-require( '@babel/register' ); // development.jsでES6を使えるようにする
+require( '@babel/register' );
 module.exports = require( './development' );
