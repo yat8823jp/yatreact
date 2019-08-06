@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 class App extends React.Component {
 	render () {
-		return <p>Hellow World!</p>;
+		return <div class="wrap"><p>Hellow World!</p></div>;
 	}
 }
 

@@ -1,3 +1,9 @@
-p {
-	color: #f00;
+.wrap {
+	display: flex;
+	p {
+		color: #f00;
+		justify-content: center;
+		align-items: center;
+		order: 1;
+	}
 }

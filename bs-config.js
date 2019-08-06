@@ -33,7 +33,7 @@ module.exports = {
 		"baseDir": "./dist/",
 		"middleware": function( req, res, next ) {
 			var timestamp = "[" + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + "] ";
-			console.log(timestamp + req.method + " " + req.originalUrl + " - " +  req.connection.remoteAddress + " - " + req.headers['user-agent']);
+			// console.log(timestamp + req.method + " " + req.originalUrl + " - " +  req.connection.remoteAddress + " - " + req.headers['user-agent']);
 			next();
 		}
 	},

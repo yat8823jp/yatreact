@@ -8,12 +8,14 @@ const dist = path.resolve( __dirname, 'dist' )
 export default {
 	mode: 'development',
 	entry: {
-		js: src + '/index.jsx',
-		scss: src + '/styles/style.scss'
+		"jsx": src + '/index.jsx',
+		"style": src + '/styles/style.scss',
+		"main": src + '/scripts/main.js'
 	},
 	output: {
+		filename: 'script/[name].js',
 		path: dist,
-		filename: '[name].js'
+		chunkFilename: '[id].[chunkhash].js'
 	},
 	module: {
 		rules: [
@@ -32,15 +34,40 @@ export default {
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
-					MiniCssExtractPlugin.loader,
 					{
-						loader: 'css-loader',
+						loader: MiniCssExtractPlugin.loader,
 						options: {
-						  url: false
+							url: false,
 						}
 					},
 					{
-						loader: 'sass-loader'
+						loader: 'css-loader',
+						options: {
+							// CSS内のurl()メソッドの取り込みを禁止する
+							url: false,
+							// ソースマップの利用有無
+							sourceMap: true,
+							// Sass+PostCSSの場合は2を指定
+							importLoaders: 2
+						}
+					},
+					{
+						loader: "postcss-loader",
+						options: {
+							ident: 'postcss',
+							sourceMap: true,
+							plugins: [
+								require( 'autoprefixer' ) ( {
+									grid: true
+								} )
+							]
+						}
+					},
+					{
+						loader: 'sass-loader',
+						options: {
+							sourceMap: true
+						}
 					}
 				]
 			},
@@ -62,7 +89,7 @@ export default {
 			filename: 'index.html'
 		} ),
 		new MiniCssExtractPlugin( {
-			filename: 'css/[name].css',
+			filename: 'css/main.css',
 		} )
 	]
 
