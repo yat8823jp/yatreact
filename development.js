@@ -1,6 +1,7 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import autoprefixer from 'autoprefixer'
 
 const src  = path.resolve( __dirname, 'src' )
 const dist = path.resolve( __dirname, 'dist' )
@@ -9,8 +10,8 @@ export default {
 	mode: 'development',
 	entry: {
 		"jsx": src + '/index.jsx',
-		"style": src + '/styles/style.scss',
-		"main": src + '/scripts/main.js'
+		"main": src + '/scripts/main.js',
+		"scss": src + '/styles/style.scss'
 	},
 	output: {
 		filename: 'script/[name].js',
@@ -34,12 +35,7 @@ export default {
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							url: false,
-						}
-					},
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						options: {
@@ -57,7 +53,7 @@ export default {
 							ident: 'postcss',
 							sourceMap: true,
 							plugins: [
-								require( 'autoprefixer' ) ( {
+								autoprefixer( {
 									grid: true
 								} )
 							]
@@ -92,5 +88,4 @@ export default {
 			filename: 'css/main.css',
 		} )
 	]
-
-  }
+}
